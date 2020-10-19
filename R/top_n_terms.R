@@ -4,7 +4,7 @@
 #'
 #' @param long_labelled_data A long-styled labelled dataframe.
 #' @param text_var The text variable that the user wants to explore.
-#' @param top_n The number of terms to include.
+#' @param top_n The number of terms to include. Default: 10
 #'
 #' @return A bar-chart visualising the top n words for each topic.
 #' @usage top_n_terms(

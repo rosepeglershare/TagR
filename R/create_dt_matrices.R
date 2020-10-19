@@ -6,8 +6,8 @@
 #' @param unlabelled_data Pre-processed unlabelled dataframe.
 #' @param text_vars List of text variables to include in analysis.
 #' @param topics List of topics to include in analysis.
-#' @param max_sparsity The maximum amount of sparsity the document term matrix should have.
-#' @param val_split The amount of training data that should be included in the validation set.
+#' @param max_sparsity The maximum amount of sparsity the document term matrix should have. Default: 0.999
+#' @param val_split The amount of training data that should be included in the validation set. Default: 0.2
 #'
 #' @return A complete labelled document-term matrix with corresponding labels,
 #' a labelled document-term matrix split into training and validation sets with corresponding labels,

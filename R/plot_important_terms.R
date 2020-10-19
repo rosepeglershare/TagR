@@ -4,7 +4,7 @@
 #'
 #' @param long_labelled_data A long-styled labelled dataframe.
 #' @param text_var The text variable that the user wants to explore.
-#' @param log_odds_n The number of terms to include.
+#' @param log_odds_n The number of terms to include. Default: 30
 #'
 #' @return A word graph for each topics with term frequency against weighted log odds ratio.
 #' @usage plot_important_terms(
