@@ -2,9 +2,7 @@ Package: TagR
 Type: Package
 Title: SHARE's TagR package that uses machine learning to identify a comment's relevant topics
 Version: 0.1.0
-Author: as.person(c(
-  "Rose Pegler <rose.pegler@sharecreative.com> [aut]"
-  ))
+Authors@R: person("Rose", "Pegler", email = "rose.pegler@sharecreative.com", role = c("aut", "cre"))
 Description: Functions that take the user through the stages of pre-processing, EDA, model building and prediction.
 License: What license is it under?
 Encoding: UTF-8
@@ -30,5 +28,6 @@ Imports:
     xgboostExplainer (>= 0.1),
     rlang (>= 0.4.7),
     R.utils (>= 2.10.1),
-    progress (>= 1.2.2)
+    progress (>= 1.2.2),
+    stringr(>= 1.4.0)
     
