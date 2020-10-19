@@ -15,6 +15,7 @@
 #' topics,
 #' text_vars)
 #' @importFrom magrittr "%>%"
+#' @importFrom utils "head" "tail"
 #' @export
 preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
 
