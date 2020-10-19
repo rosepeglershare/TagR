@@ -23,13 +23,13 @@ plot_important_terms <- function(long_labelled_data, text_var, log_odds_n = 30){
     dplyr::group_by(type) %>%
     dplyr::count(word, sort = TRUE) %>%
     dplyr::ungroup() %>%
-    tidylo::bind_log_odds(type, word, n)
+    tidylo::bind_log_odds(set = type, feature = word, n = n)
 
   log_odds_word_graph <- pre_process %>%
     dplyr::group_by(type) %>%
     dplyr::top_n(n = log_odds_n, wt = n) %>%
     dplyr::ungroup() %>%
-    ggplot2::ggplot(aes(n, log_odds_weighted, label = word)) +
+    ggplot2::ggplot(ggplot2::aes(x = n, y = log_odds_weighted, label = word)) +
     ggplot2::geom_hline(yintercept = 0, lty = 2,
                         color = "gray50", alpha = 0.5, size = 1.2) +
     ggrepel::geom_text_repel(size = 3, segment.size = 0.5) +
