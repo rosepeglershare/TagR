@@ -3,7 +3,6 @@
 #' Displays the number of comments in the dataframe that each topic relates to.
 #'
 #' @param labelled_data A binary-labelled dataframe.
-#' @param colour Colour of the bars.
 #'
 #' @return A bar chart displaying each topic frequency.
 #' @usage topic_frequency(labelled_data)
