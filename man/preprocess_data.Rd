@@ -2,9 +2,10 @@
 % Please edit documentation in R/preprocess_data.R
 \name{preprocess_data}
 \alias{preprocess_data}
-\title{Pre-process text data}
+\title{Preprocess_data}
 \usage{
-preprocess_data(labelled_raw,
+preprocess_data(
+labelled_raw,
 unlabelled_raw,
 topics,
 text_vars)

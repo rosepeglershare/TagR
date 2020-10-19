@@ -1,4 +1,4 @@
-#' Pre-process text data
+#' Preprocess_data
 #'
 #' Perform pre-processing tasks on the text data including removing punctuation and stopwords.
 #' This function also produces a long styled data set in preparation for exploratory data analysis.
@@ -9,15 +9,14 @@
 #' @param text_vars A list containing each text variable to be processed.
 #'
 #' @return A pre-processed labelled dataframe, unlabelled dataframe, and long labelled dataframe.
-#' @usage preprocess_data(labelled_raw,
+#' @usage preprocess_data(
+#' labelled_raw,
 #' unlabelled_raw,
 #' topics,
 #' text_vars)
 #' @importFrom magrittr "%>%"
 #' @export
 #'
-#' @examples
-
 preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
 
   # merge both sets to make pre-processing easier
