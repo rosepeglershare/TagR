@@ -16,7 +16,6 @@
 #' text_vars)
 #' @importFrom magrittr "%>%"
 #' @export
-#'
 preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
 
   # merge both sets to make pre-processing easier
