@@ -31,5 +31,6 @@ Imports:
     progress (>= 1.2.2),
     stringr(>= 1.4.0),
     ggplot2 (>= 3.3.2),
-    magrittr (>= 1.5)
+    magrittr (>= 1.5),
+    tibble (>= 3.0.3)
 RoxygenNote: 7.1.1
