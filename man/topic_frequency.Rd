@@ -8,8 +8,6 @@ topic_frequency(labelled_data)
 }
 \arguments{
 \item{labelled_data}{A binary-labelled dataframe.}
-
-\item{colour}{Colour of the bars.}
 }
 \value{
 A bar chart displaying each topic frequency.
