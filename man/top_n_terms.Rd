@@ -14,7 +14,7 @@ top_n = 10)
 
 \item{text_var}{The text variable that the user wants to explore.}
 
-\item{top_n}{The number of terms to include.}
+\item{top_n}{The number of terms to include. Default: 10}
 }
 \value{
 A bar-chart visualising the top n words for each topic.

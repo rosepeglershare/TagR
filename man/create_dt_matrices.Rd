@@ -21,9 +21,9 @@ val_split = 0.2)
 
 \item{topics}{List of topics to include in analysis.}
 
-\item{max_sparsity}{The maximum amount of sparsity the document term matrix should have.}
+\item{max_sparsity}{The maximum amount of sparsity the document term matrix should have. Default: 0.999}
 
-\item{val_split}{The amount of training data that should be included in the validation set.}
+\item{val_split}{The amount of training data that should be included in the validation set. Default: 0.2}
 }
 \value{
 A complete labelled document-term matrix with corresponding labels,

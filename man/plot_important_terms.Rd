@@ -14,7 +14,7 @@ log_odds_n = 30)
 
 \item{text_var}{The text variable that the user wants to explore.}
 
-\item{log_odds_n}{The number of terms to include.}
+\item{log_odds_n}{The number of terms to include. Default: 30}
 }
 \value{
 A word graph for each topics with term frequency against weighted log odds ratio.
