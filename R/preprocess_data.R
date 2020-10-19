@@ -46,8 +46,8 @@ preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
   cat("\nSTEP 2 OF 2:")
   cat("\nMaking long dataset...\n")
 
-  longdf <- tidyr::gather(labelled, type, true, dplyr::all_of(topics))
-  longdf <- tidyr::gather(labelled, type, true, all_of(topics))
+  longdf <- tidyr::gather(labelled, 'type', 'true', dplyr::all_of(topics))
+  longdf <- tidyr::gather(labelled, 'type', 'true', dplyr::all_of(topics))
 
   longdf <- subset(longdf, true == 1)
   longdf <- subset(longdf, select=-true)
