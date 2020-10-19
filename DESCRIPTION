@@ -29,5 +29,6 @@ Imports:
     rlang (>= 0.4.7),
     R.utils (>= 2.10.1),
     progress (>= 1.2.2),
-    stringr(>= 1.4.0)
+    stringr(>= 1.4.0),
+    ggplot2 (>= 3.3.2)
 RoxygenNote: 7.1.1
