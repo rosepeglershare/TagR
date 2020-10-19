@@ -4,7 +4,7 @@ Title: SHARE's TagR package that uses machine learning to identify a comment's r
 Version: 0.1.0
 Authors@R: person("Rose", "Pegler", email = "rose.pegler@sharecreative.com", role = c("aut", "cre"))
 Description: Functions that take the user through the stages of pre-processing, EDA, model building and prediction.
-License: What license is it under?
+License: file LICENSE
 Encoding: UTF-8
 Depends: R (>= 4.0.2)
 LazyData: true
