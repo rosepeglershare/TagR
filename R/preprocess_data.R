@@ -1,3 +1,22 @@
+#' Pre-process text data
+#'
+#' Perform pre-processing tasks on the text data including removing punctuation and stopwords.
+#' This function also produces a long styled data set in preparation for exploratory data analysis.
+#'
+#' @param labelled_raw A dataframe that details whether the comment belongs to a topic using a binary 0 or 1.
+#' @param unlabelled_raw An unlabelled dataframe that will be used for predictions.
+#' @param topics A list containing each topic.
+#' @param text_vars A list containing each text variable to be processed.
+#'
+#' @return A pre-processed labelled dataframe, unlabelled dataframe, and long labelled dataframe.
+#' @usage preprocess_data(labelled_raw,
+#' unlabelled_raw,
+#' topics,
+#' text_vars)
+#' @importFrom magrittr "%>%"
+#' @export
+#'
+#' @examples
 preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
 
   # merge both sets to make pre-processing easier
