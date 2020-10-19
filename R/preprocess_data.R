@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #' Pre-process text data
 #'
 #' Perform pre-processing tasks on the text data including removing punctuation and stopwords.
@@ -17,6 +18,8 @@
 #' @export
 #'
 #' @examples
+=======
+>>>>>>> 5f008eef6367fa1dbceb832265e86a4e96dd0c49
 preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
 
   # merge both sets to make pre-processing easier
@@ -35,13 +38,22 @@ preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
   }
 
   # split again into labelled and unlabelled datasets
+<<<<<<< HEAD
   labelled <- cbind(utils::head(all, nrow(labelled_raw)), labelled_raw[topics])
   unlabelled <- utils::tail(all, nrow(unlabelled_raw))
+=======
+  labelled <- cbind(head(all, nrow(labelled_raw)), labelled_raw[topics])
+  unlabelled <- tail(all, nrow(unlabelled_raw))
+>>>>>>> 5f008eef6367fa1dbceb832265e86a4e96dd0c49
 
   # make long dataset in preparation for EDA
   cat("\nSTEP 2 OF 2:")
   cat("\nMaking long dataset...\n")
+<<<<<<< HEAD
   longdf <- tidyr::gather(labelled, type, true, dplyr::all_of(topics))
+=======
+  longdf <- tidyr::gather(labelled, type, true, all_of(topics))
+>>>>>>> 5f008eef6367fa1dbceb832265e86a4e96dd0c49
   longdf <- subset(longdf, true == 1)
   longdf <- subset(longdf, select=-true)
   rownames(longdf) <- NULL
