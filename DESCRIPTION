@@ -6,7 +6,7 @@ Authors@R: person("Rose", "Pegler", email = "rose.pegler@sharecreative.com", rol
 Description: Functions that take the user through the stages of pre-processing, EDA, model building and prediction.
 License: file LICENSE
 Encoding: UTF-8
-Depends: R (>= 4.0.2)
+Depends: R (>= 3.5)
 LazyData: true
 Imports:
     devtools (>= 2.3.1),
