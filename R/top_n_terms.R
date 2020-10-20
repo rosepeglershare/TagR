@@ -7,10 +7,6 @@
 #' @param top_n The number of terms to include. Default: 10
 #'
 #' @return A bar-chart visualising the top n words for each topic.
-#' @usage top_n_terms(
-#' long_labelled_data,
-#' text_var,
-#' top_n = 10)
 #' @importFrom magrittr "%>%"
 #' @export
 

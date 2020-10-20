@@ -13,13 +13,6 @@
 #' a labelled document-term matrix split into training and validation sets with corresponding labels,
 #' and an unlabelled document-term matrix used for predictions.
 #'
-#' @usage create_dt_matrices(
-#' labelled_data,
-#' unlabelled_data,
-#' text_vars,
-#' topics,
-#' max_sparsity = 0.999,
-#' val_split = 0.2)
 #' @importFrom magrittr "%>%"
 #' @export
 

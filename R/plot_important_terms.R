@@ -7,10 +7,6 @@
 #' @param log_odds_n The number of terms to include. Default: 30
 #'
 #' @return A word graph for each topics with term frequency against weighted log odds ratio.
-#' @usage plot_important_terms(
-#' long_labelled_data,
-#' text_var,
-#' log_odds_n = 30)
 #' @importFrom magrittr "%>%"
 #' @export
 

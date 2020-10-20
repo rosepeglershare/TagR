@@ -4,10 +4,7 @@
 \alias{plot_important_terms}
 \title{plot_important_terms}
 \usage{
-plot_important_terms(
-long_labelled_data,
-text_var,
-log_odds_n = 30)
+plot_important_terms(long_labelled_data, text_var, log_odds_n = 30)
 }
 \arguments{
 \item{long_labelled_data}{A long-styled labelled dataframe.}

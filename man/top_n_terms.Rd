@@ -4,10 +4,7 @@
 \alias{top_n_terms}
 \title{top_n_terms}
 \usage{
-top_n_terms(
-long_labelled_data,
-text_var,
-top_n = 10)
+top_n_terms(long_labelled_data, text_var, top_n = 10)
 }
 \arguments{
 \item{long_labelled_data}{A long-styled labelled dataframe.}

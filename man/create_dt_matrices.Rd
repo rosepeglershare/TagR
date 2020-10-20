@@ -5,12 +5,13 @@
 \title{create_dt_matrices}
 \usage{
 create_dt_matrices(
-labelled_data,
-unlabelled_data,
-text_vars,
-topics,
-max_sparsity = 0.999,
-val_split = 0.2)
+  labelled_data,
+  unlabelled_data,
+  text_vars,
+  topics,
+  max_sparsity = 0.999,
+  val_split = 0.2
+)
 }
 \arguments{
 \item{labelled_data}{Pre-processed binary labelled dataframe.}

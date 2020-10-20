@@ -5,7 +5,6 @@
 #' @param labelled_data A binary-labelled dataframe.
 #'
 #' @return A bar chart displaying each topic frequency.
-#' @usage topic_frequency(labelled_data)
 #' @importFrom magrittr "%>%"
 #' @export
 topic_frequency <- function(labelled_data){

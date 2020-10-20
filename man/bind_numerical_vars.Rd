@@ -5,14 +5,15 @@
 \title{bind_numerical_vars}
 \usage{
 bind_numerical_vars(
-labelled_raw,
-unlabelled_raw,
-full_labelled_dtm,
-train_labelled_dtm,
-valid_labelled_dtm,
-unlabelled_dtm,
-numerical_vars,
-val_split = 0.2)
+  labelled_raw,
+  unlabelled_raw,
+  full_labelled_dtm,
+  train_labelled_dtm,
+  valid_labelled_dtm,
+  unlabelled_dtm,
+  numerical_vars,
+  val_split = 0.2
+)
 }
 \arguments{
 \item{labelled_raw}{Original labelled dataframe before any pre-processing.}
