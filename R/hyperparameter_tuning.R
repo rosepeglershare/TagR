@@ -32,9 +32,9 @@ hyperparameter_tuning <- function(train_labelled_dtm, valid_labelled_dtm, train_
     param <- list(booster = "gbtree",
                   objective = "binary:logistic",
                   max_depth = sample(3:10, 1),
-                  eta = runif(1, .01, .3),
-                  subsample = runif(1, .7, 1),
-                  colsample_bytree = runif(1, .6, 1),
+                  eta = stats::runif(1, .01, .3),
+                  subsample = stats::runif(1, .7, 1),
+                  colsample_bytree = stats::runif(1, .6, 1),
                   min_child_weight = sample(0:10, 1)
     )
     parameters <- as.data.frame(param)
@@ -61,7 +61,7 @@ hyperparameter_tuning <- function(train_labelled_dtm, valid_labelled_dtm, train_
 
     # random search
     lowest_error_list = list()
-    pb <- progress_bar$new(total = nrow(parameters_df), clear = FALSE)
+    pb <- progress::progress_bar$new(total = nrow(parameters_df), clear = FALSE)
 
     # iterate through each row of the parameters dataset
     for (row in 1:nrow(parameters_df)){
@@ -87,6 +87,7 @@ hyperparameter_tuning <- function(train_labelled_dtm, valid_labelled_dtm, train_
 
       # store results
       lowest_error <- as.data.frame(1 - min(mdcv$evaluation_log$val_error))
+      colnames(lowest_error) <- 'val_acc'
       lowest_error_list[[row]] <- lowest_error
     }
 
@@ -97,8 +98,7 @@ hyperparameter_tuning <- function(train_labelled_dtm, valid_labelled_dtm, train_
     # filter final dataframe so it contains a parameter set leading to the highest accuracy
     randomsearch = cbind(lowest_error_df, parameters_df)
     bestresult <- as.data.frame(randomsearch) %>%
-      rename(val_acc = `1 - min(mdcv$evaluation_log$val_error)`) %>%
-      filter(val_acc == max(val_acc))
+      dplyr::filter(val_acc == max(val_acc))
 
     # return dataset with each topic and best parameter set
     finalresults <- rbind(finalresults, bestresult[1,])
