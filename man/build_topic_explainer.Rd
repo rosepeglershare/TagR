@@ -34,6 +34,6 @@ build_topic_explainer(
 The trained xgboost model and explainer for the chosen topic
 }
 \description{
-For the chosen topic, this function creates an explainer that help's the user to better understand how the xgboost model creates predictions.
+For the chosen topic, this function creates an explainer that helps the user to better understand how the xgboost model creates predictions.
 The explainer is to be created before using the explain_comment function.
 }

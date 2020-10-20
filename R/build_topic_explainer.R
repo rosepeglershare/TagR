@@ -1,6 +1,6 @@
 #' build_topic_explainer
 #'
-#' For the chosen topic, this function creates an explainer that help's the user to better understand how the xgboost model creates predictions.
+#' For the chosen topic, this function creates an explainer that helps the user to better understand how the xgboost model creates predictions.
 #' The explainer is to be created before using the explain_comment function.
 #'
 #' @param unlabelled_raw Original unlabelled dataframe before any pre-processing.
