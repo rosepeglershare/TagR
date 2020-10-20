@@ -32,5 +32,6 @@ Imports:
     stringr(>= 1.4.0),
     ggplot2 (>= 3.3.2),
     magrittr (>= 1.5),
-    tibble (>= 3.0.3)
+    tibble (>= 3.0.3),
+    stats (>= 4.0.2)
 RoxygenNote: 7.1.1
