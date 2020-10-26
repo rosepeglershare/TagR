@@ -1,22 +1,26 @@
 ---
-title: "full_IT_DEV_example"
+title: "IT/DEV Example"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{full_IT_DEV_example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
 ```{r, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE,
-                      fig.align = "center")
+                      fig.align = "center",
+                      fig.width=7,
+                      fig.height=5)
+
 ```
 
 ```{r setup}
 library(pander)
 library(TagR)
+library(tm)
+library(tidyverse)
 ```
 
 This notebook provides a full example of how a user can utilise the TagR package.
@@ -26,7 +30,7 @@ We will go through the following steps:
 1. Pre-process the text data
 1. Conduct exploratory data analysis
 1. Create document-term matrices
-1. Bind  numerical variables to the document-term matrices
+1. Bind numerical variables to the document-term matrices
 1. Find an optimal set of parameters for the Xgboost model for each type of author
 1. Train a model for each author type and predict the probabilities that each post in the unlabelled data set belongs to such author
 1. Build an explainer that helps to visualise how the Xgboost model makes its predictions
@@ -37,14 +41,137 @@ The labelled dataset consists of 644 tweets where the author has been identified
 The unlabelled dataset consists of 644 tweets where the author has not yet been identified.
 
 ```{r}
-labelled <- TagR::labelled
-unlabelled <- TagR::unlabelled
+labelled_raw <- TagR::labelled
+unlabelled_raw <- TagR::unlabelled
 ```
 
-The labelled dataset looks like the following:
+The labelled and unlabelled datasets have the following variables:
 
-```{r, results = "asis"}
-pander::pandoc.table(names(labelled))
+```{r, echo = FALSE}
+names(unlabelled_raw)
+```
+
+The labelled dataset also has the variables 
+
+```{r, echo = FALSE}
+names(labelled_raw[,10:11])
+```
+
+that identifies which type of author the tweet belongs to, using a binary 0 or 1 in each column.
+
+## Step 1: Pre-process the text data
+
+The text data that I wish to include within the model is under the variable 'text'.
+
+This text data is going to be pre-processed by:
+
+* removing punctuation
+* transforming text to lowercase
+* removing numbers and any mention of "http"
+* removing common words such as "the" that will not be useful in this analysis
+
+The "preprocess_data" function also outputs a long-style dataframe that will be useful in performing exploratory data analysis.
+
+```{r, results = 'hide'}
+preprocessed_data <- TagR::preprocess_data(labelled_raw = labelled_raw,
+                                           unlabelled_raw = unlabelled_raw,
+                                           topics = c('DEV', 'ITPRO'),
+                                           text_vars = c('text'))
+
+labelled <- preprocessed_data$labelled_data
+unlabelled <- preprocessed_data$unlabelled_data
+long_labelled <- preprocessed_data$long_labelled_data
+```
+
+## Step 2: Perform exploratory data analysis
+
+I would now like to explore the most frequent 10 terms for each author, how often each author crops up in the dataset, and the difference between an IT professional and developer in terms of the words they mention.
+
+**Top 10 terms:**
+
+```{r}
+top_n_terms(long_labelled_data = long_labelled,
+            text_var = text,
+            top_n = 10)
+```
+
+**Author frequency:**
+
+```{r}
+topic_frequency(labelled_data = labelled)
+```
+
+**Important terms:**
+
+This function uses the weighted log odds ratio to identify words that are particularly important in identifying whether a post belongs to each category.
+The terms 'javascript' and 'cybersecurity' are key in identifying a developer and IT pro, respectively, even though they may not be the most frequent terms.
+
+```{r}
+plot_important_terms(long_labelled_data = long_labelled,
+                     text_var = text,
+                     log_odds_n = 30)
+```
+
+## Step 3: Create document-term matrices
+
+I now want to transform my data into sparse document-term matrices whereby each column represents a word and the rows represent a post.
+For example, the following dataset
+
+```{r}
+sentences <- c('I love machine learning',
+               'I love to code')
+```
+
+can be transformed into this matrix
+
+```{r, echo=FALSE}
+sample_dtm <- tm::VCorpus(tm::VectorSource(sentences)) %>%
+  tm::DocumentTermMatrix() %>%
+  as.matrix()
+```
+
+```{r, results = "asis", echo=FALSE}
+pander::pandoc.table(sample_dtm)
+```
+
+To create my document-term matrices I will set the maximum sparsity level to 1 as I want to include all terms. For much larger datasets this may need to be reduced to the default value of 0.999 to decrease the size of the matrix. The validation split is set to 0.2, this splits the labelled dataset into a training dataset and validation dataset ready for hyper-parameter tuning.
+
+```{r}
+dtms <- create_dt_matrices(labelled_data = labelled,
+                           unlabelled_data = unlabelled,
+                           text_vars = c('text'),
+                           topics = c('DEV', 'ITPRO'),
+                           max_sparsity = 1,
+                           val_split = 0.2)
+
+full_labelled_dtm <- dtms$labelled_dtm
+train_labelled_dtm <- dtms$train_labelled_dtm
+valid_labelled_dtm <- dtms$valid_labelled_dtm
+unlabelled_dtm <- dtms$unlabelled_dtm
+full_labels <- dtms$labels
+train_labels <- dtms$train_labels
+val_labels <- dtms$val_labels
+
+```
+
+## Step 4: Bind numerical variables to matrices
+
+Now that the text data is sorted, I want to add any numerical variables that I think could be useful. I'm going to choose reach, favourites and retweets. The validation split needs to be the same as before, 0.2.
+
+```{r}
+dtms <- bind_numerical_vars(labelled_raw = labelled_raw,
+                            unlabelled_raw = unlabelled_raw,
+                            full_labelled_dtm = full_labelled_dtm,
+                            train_labelled_dtm = train_labelled_dtm,
+                            valid_labelled_dtm = valid_labelled_dtm,
+                            unlabelled_dtm = unlabelled_dtm,
+                            numerical_vars = c('reach', 'favourites', 'retweets'),
+                            val_split = 0.2)
+
+full_labelled_dtm <- dtms$full_labelled_dtm
+train_labelled_dtm <- dtms$train_labelled_dtm
+valid_labelled_dtm <- dtms$valid_labelled_dtm
+unlabelled_dtm <- dtms$unlabelled_dtm
 ```
 
 
