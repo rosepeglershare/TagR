@@ -8,6 +8,23 @@
 
 ## What is TagR?
 
+TagR is SHARE’s R package for topic tagging using machine learning.
+Using predefined topics and a labelled data set, it allows the user to
+find the probability that a post belongs to a particular topic.
+
+This package is used by running through the following steps:
+
+-   Pre-process the text data
+-   Conduct exploratory data analysis
+-   Create document-term matrices
+-   Bind any numerical variables to the document-term matrices
+-   Find an optimal set of parameters for the Xgboost model for each
+    topic
+-   Train a model for each topic and predict the probabilities that each
+    post in the unlabelled data set belongs to such topic
+-   Build an explainer that helps the user visualise how the Xgboost
+    model makes its predictions
+
 ## Installation
 
 You can install the released version of TagR from
