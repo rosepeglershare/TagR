@@ -11,7 +11,12 @@
 #' @return A waterfall chart that demonstrates how the inclusion/exclusion of certain words informed its decision.
 #' @export
 
-explain_comment <- function(xgbmodel, explainer, unlabelled_dtm, comment_index, threshold = 0.02){
+explain_comment <- function(xgbmodel,
+                            explainer,
+                            unlabelled_dtm,
+                            comment_index,
+                            threshold = 0.02){
+
   # build test matrix ready for waterfall function
   testdata <- xgboost::xgb.DMatrix(data = unlabelled_dtm)
 

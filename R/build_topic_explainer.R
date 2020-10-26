@@ -14,14 +14,19 @@
 #' @return The trained xgboost model and explainer for the chosen topic
 #' @export
 
-build_topic_explainer <- function(unlabelled_raw, labelled_dtm, unlabelled_dtm, labels_matrix, topic,
+build_topic_explainer <- function(unlabelled_raw,
+                                  labelled_dtm,
+                                  unlabelled_dtm,
+                                  labels_matrix,
+                                  topic,
                                   parameters = list(booster = "gbtree",
                                                     objective = "binary:logistic",
                                                     max_depth = 6,
                                                     eta = 0.3,
                                                     subsample = 1,
                                                     colsample_bytree = 1,
-                                                    min_child_weight = 1), parameters_df = NULL){
+                                                    min_child_weight = 1),
+                                  parameters_df = NULL){
 
   # the term 'tree' has to be removed otherwise it interferes with the explainer function
   labelled_dtm <- labelled_dtm[, colnames(labelled_dtm) != 'tree']

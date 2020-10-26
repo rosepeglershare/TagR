@@ -10,7 +10,10 @@
 #' @importFrom magrittr "%>%"
 #' @export
 
-top_n_terms <- function(long_labelled_data, text_var, top_n = 10){
+top_n_terms <- function(long_labelled_data,
+                        text_var,
+                        top_n = 10){
+
   text_var <- rlang::enquo(text_var)
 
   # find the most frequent words for each topic

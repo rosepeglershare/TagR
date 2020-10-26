@@ -16,15 +16,22 @@
 #' @return A dataframe with the original comments, chosen attributes and probabilities that they belong to each topic.
 #' @export
 
-predict_topics <- function(unlabelled_raw, labelled_dtm, unlabelled_dtm, labels_matrix, text_vars,
-                           num_vars, topics, parameters = list(booster = "gbtree",
+predict_topics <- function(unlabelled_raw,
+                           labelled_dtm,
+                           unlabelled_dtm,
+                           labels_matrix,
+                           text_vars,
+                           num_vars,
+                           topics,
+                           parameters = list(booster = "gbtree",
                                                      objective = "binary:logistic",
                                                      max_depth = 6,
                                                      eta = 0.3,
                                                      subsample = 1,
                                                      colsample_bytree = 1,
                                                      min_child_weight = 1),
-                           parameters_df = NULL, nrounds = 1000){
+                           parameters_df = NULL,
+                           nrounds = 1000){
 
   # create empty dataframe to store results
   finaldf <- data.frame(matrix(ncol = length(topics), nrow = nrow(unlabelled_dtm)))

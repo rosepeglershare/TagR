@@ -17,21 +17,31 @@
 #'
 #' @export
 
-bind_numerical_vars <- function(labelled_raw, unlabelled_raw, full_labelled_dtm, train_labelled_dtm,
-                                valid_labelled_dtm, unlabelled_dtm, numerical_vars, val_split = 0.2){
+bind_numerical_vars <- function(labelled_raw,
+                                unlabelled_raw,
+                                full_labelled_dtm,
+                                train_labelled_dtm,
+                                valid_labelled_dtm,
+                                unlabelled_dtm,
+                                numerical_vars,
+                                val_split = 0.2){
 
+  # Split numerical data using validation split
   numerical_data <- labelled_raw[, numerical_vars]
   train_num <- utils::head(numerical_data, nrow(numerical_data) * (1-val_split))
   val_num <- utils::tail(numerical_data, nrow(numerical_data) * val_split)
 
+  # convert data to matrix form
   numerical_data <- Matrix::Matrix(as.matrix(numerical_data), sparse=TRUE)
   train_num <- Matrix::Matrix(as.matrix(train_num), sparse = TRUE)
   val_num <- Matrix::Matrix(as.matrix(val_num), sparse = TRUE)
 
+  # bind with text matrices
   full_labelled_dtm <- cbind(full_labelled_dtm, numerical_data)
   train_labelled_dtm <- cbind(train_labelled_dtm, train_num)
   valid_labelled_dtm <- cbind(valid_labelled_dtm, val_num)
 
+  # bind numerical data with unlabelled dataset
   numerical_data_unlabelled <- unlabelled_raw[, numerical_vars]
   numerical_data_unlabelled <- Matrix::Matrix(as.matrix(numerical_data_unlabelled), sparse = TRUE)
   unlabelled_dtm <- cbind(unlabelled_dtm, numerical_data_unlabelled)

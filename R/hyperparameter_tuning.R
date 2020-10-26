@@ -21,7 +21,11 @@
 #' @return A dataframe with columns representing parameters and rows representing an optimal parameter set for each topic.
 #' @export
 
-hyperparameter_tuning <- function(train_labelled_dtm, valid_labelled_dtm, train_labels, val_labels, topics,
+hyperparameter_tuning <- function(train_labelled_dtm,
+                                  valid_labelled_dtm,
+                                  train_labels,
+                                  val_labels,
+                                  topics,
                                   num_its = 1000){
   set.seed(100)
 

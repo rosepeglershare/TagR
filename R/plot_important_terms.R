@@ -10,7 +10,10 @@
 #' @importFrom magrittr "%>%"
 #' @export
 
-plot_important_terms <- function(long_labelled_data, text_var, log_odds_n = 30){
+plot_important_terms <- function(long_labelled_data,
+                                 text_var,
+                                 log_odds_n = 30){
+
   text_var <- rlang::enquo(text_var)
 
   # visualise the most important words for each topic, measured by weighted log odds ratio

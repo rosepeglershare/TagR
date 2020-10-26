@@ -16,7 +16,13 @@
 #' @importFrom magrittr "%>%"
 #' @export
 
-create_dt_matrices <- function(labelled_data, unlabelled_data, text_vars, topics, max_sparsity = 0.999, val_split = 0.2){
+create_dt_matrices <- function(labelled_data,
+                               unlabelled_data,
+                               text_vars,
+                               topics,
+                               max_sparsity = 0.999,
+                               val_split = 0.2){
+
   # combine datasets to get one document term matrix
   cat("STEP 1 OF 4: Combining datasets...\n")
 
