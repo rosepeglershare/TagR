@@ -51,10 +51,16 @@ create_dt_matrices <- function(labelled_data,
 
   # transform corpus into document term matrix
   cat("STEP 3 OF 4: Creating document term matrix...\n")
-  dtm <- dtm %>%
-    tm::DocumentTermMatrix() %>%
-    tm::removeSparseTerms(max_sparsity) %>%
-    as.matrix()
+  if (max_sparsity == 1){
+    dtm <- dtm %>%
+      tm::DocumentTermMatrix() %>%
+      as.matrix()
+  } else {
+    dtm <- dtm %>%
+      tm::DocumentTermMatrix() %>%
+      tm::removeSparseTerms(max_sparsity) %>%
+      as.matrix()
+  }
 
   # split into labelled and unlabelled matrices, with training and validation datasets for hyperparameter tuning
   cat("STEP 4 OF 4: Splitting into labelled/unlabelled sparse matrices...\n")
@@ -79,6 +85,6 @@ create_dt_matrices <- function(labelled_data,
 
   unlabelled_dtm <- Matrix::Matrix(tail(dtm, nrow(unlabelled_data)), sparse=TRUE)
 
-  list('labelled_dtm' = full_labelled_dtm, 'train_labelled_dtm' = train_labelled_dtm, 'valid_labelled_data' = val_labelled_dtm,
+  list('labelled_dtm' = full_labelled_dtm, 'train_labelled_dtm' = train_labelled_dtm, 'valid_labelled_dtm' = val_labelled_dtm,
        'unlabelled_dtm' = unlabelled_dtm, 'labels' = fulllabels, 'train_labels' = trainlabels, 'val_labels' = vallabels)
 }
