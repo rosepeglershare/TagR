@@ -174,5 +174,30 @@ valid_labelled_dtm <- dtms$valid_labelled_dtm
 unlabelled_dtm <- dtms$unlabelled_dtm
 ```
 
+## Step 5: Hyper-parameter tuning
+
+Xgboost models use a range of different parameters, the values of which can affect how the model performs.
+
+The parameters we are going to use are:
+
+* max_depth: Maximum depth of a tree. Increasing this value will make the model more complex and more likely to overfit.}
+* eta: Step size shrinkage used in update to prevent overfitting. 
+* subsample: Subsample ratio of the training instances. Setting it to 0.5 means that XGBoost would randomly sample half of the training data prior to growing trees and this will prevent overfitting. 
+* colsample_bytree: The subsample ratio of columns when constructing each tree. Subsampling occurs once for every tree constructed.
+* min_child_weight: Minimum sum of instance weight (hessian) needed in a child. If the tree partition step results in a leaf node with the sum of instance weight less than min_child_weight, then the building process will give up further partitioning.
+
+The "hyperparameter_tuning" function goes through a number of random values for each parameter and finds the set of parameters that produced the highest accuracy score. The number of iterations should be kept high to increase the chance of finding better parameters, but for the purpose of this example I will use a lower number of 500.
+
+```{r, results = 'hide'}
+parameters <- hyperparameter_tuning(train_labelled_dtm = train_labelled_dtm,
+                                    valid_labelled_dtm = valid_labelled_dtm,
+                                    train_labels = train_labels,
+                                    val_labels = val_labels,
+                                    topics = c("DEV", "ITPRO"),
+                                    num_its = 500)
 
 
+```
+```{r, results = "asis", echo=FALSE}
+pander::pandoc.table(parameters)
+```
