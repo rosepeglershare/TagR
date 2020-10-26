@@ -1,0 +1,51 @@
+---
+title: "full_IT_DEV_example"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{full_IT_DEV_example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.align = "center")
+```
+
+```{r setup}
+library(pander)
+library(TagR)
+```
+
+This notebook provides a full example of how a user can utilise the TagR package.
+
+We will go through the following steps:
+
+1. Pre-process the text data
+1. Conduct exploratory data analysis
+1. Create document-term matrices
+1. Bind  numerical variables to the document-term matrices
+1. Find an optimal set of parameters for the Xgboost model for each type of author
+1. Train a model for each author type and predict the probabilities that each post in the unlabelled data set belongs to such author
+1. Build an explainer that helps to visualise how the Xgboost model makes its predictions
+
+## The Data
+
+The labelled dataset consists of 644 tweets where the author has been identified as either an IT professional, a developer, or neither.
+The unlabelled dataset consists of 644 tweets where the author has not yet been identified.
+
+```{r}
+labelled <- TagR::labelled
+unlabelled <- TagR::unlabelled
+```
+
+The labelled dataset looks like the following:
+
+```{r, results = "asis"}
+pander::pandoc.table(names(labelled))
+```
+
+
+
