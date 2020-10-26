@@ -15,7 +15,6 @@ Imports:
     stopwords (>= 2.0),
     tm (>= 0.7),
     tidytext (>= 0.2.6),
-    ParseR (>= 0.1.0),
     DiagrammeR (>= 1.0.6),
     gridExtra (>= 2.3),
     xgboost (>= 1.2.0),
