@@ -62,6 +62,8 @@ create_dt_matrices <- function(labelled_data,
       as.matrix()
   }
 
+  dtm <- dtm[, colnames(dtm) != 'tree']
+
   # split into labelled and unlabelled matrices, with training and validation datasets for hyperparameter tuning
   cat("STEP 4 OF 4: Splitting into labelled/unlabelled sparse matrices...\n")
   full_labelled <- dtm[1:nrow(labelled_data),]

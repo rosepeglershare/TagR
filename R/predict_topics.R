@@ -39,12 +39,20 @@ predict_topics <- function(unlabelled_raw,
   rownames(finaldf) <- rownames(unlabelled_dtm)
 
   # if not using own parameters, use the default ones to train model for each topic
+  set.seed(1)
+  models <- list()
+
+  labelled_dtm <- labelled_dtm[, colnames(labelled_dtm) != 'tree']
+  unlabelled_dtm <- unlabelled_dtm[, colnames(unlabelled_dtm) != 'tree']
+
   if (length(is.na(parameters_df)) == 0){
     for (topic in topics){
       label <- as.integer(labels_matrix[,topic])
 
       cat("\nTraining model for topic: ", topic)
       xgbmodel <- xgboost::xgboost(labelled_dtm, label, params = parameters, nrounds = nrounds, verbose = 1, print_every_n = 100)
+
+      models[[topic]] <- xgbmodel
 
       cat("\nPredicting on test set\n")
       # predict on unlabelled set using trained model
@@ -67,6 +75,8 @@ predict_topics <- function(unlabelled_raw,
       cat("\nTraining model for topic: ", topic, "\n")
       xgbmodel <- xgboost::xgboost(labelled_dtm, label, params = paramlist, nrounds = nrounds, verbose = 1, print_every_n = 100)
 
+      models[[topic]] <- xgbmodel
+
       cat("\nPredicting on test set\n")
       # predict on unlabelled set using trained model
       predicted <- stats::predict(xgbmodel, unlabelled_dtm)
@@ -77,9 +87,9 @@ predict_topics <- function(unlabelled_raw,
 
   # reset rownames to match with original dataset
   rownames(finaldf) <- NULL
-  finaldf <- cbind(unlabelled_raw[, text_vars], finaldf)
-  finaldf <- cbind(unlabelled_raw[, num_vars], finaldf)
-  colnames(finaldf) <- do.call(c, list(text_vars, topics))
+  final <- cbind(unlabelled_raw[, text_vars], unlabelled_raw[, num_vars])
+  final <- cbind(final, finaldf)
+  colnames(final) <- do.call(c, list(text_vars, num_vars, topics))
 
-  finaldf
+  list("models" = models, "predictions" = final)
 }
