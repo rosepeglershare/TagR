@@ -17,7 +17,10 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom utils "head" "tail"
 #' @export
-preprocess_data <- function(labelled_raw, unlabelled_raw, topics, text_vars){
+preprocess_data <- function(labelled_raw,
+                            unlabelled_raw,
+                            topics,
+                            text_vars){
 
   # merge both sets to make pre-processing easier
   all <- rbind(labelled_raw[text_vars], unlabelled_raw[text_vars])
