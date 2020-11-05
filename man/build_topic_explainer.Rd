@@ -4,31 +4,16 @@
 \alias{build_topic_explainer}
 \title{build_topic_explainer}
 \usage{
-build_topic_explainer(
-  unlabelled_raw,
-  labelled_dtm,
-  unlabelled_dtm,
-  labels_matrix,
-  topic,
-  parameters = list(booster = "gbtree", objective = "binary:logistic", max_depth = 6,
-    eta = 0.3, subsample = 1, colsample_bytree = 1, min_child_weight = 1),
-  parameters_df = NULL
-)
+build_topic_explainer(full_labelled_dtm, full_labels, topic, model)
 }
 \arguments{
-\item{unlabelled_raw}{Original unlabelled dataframe before any pre-processing.}
+\item{full_labelled_dtm}{Full labelled document-term matrix.}
 
-\item{labelled_dtm}{Full labelled document-term matrix.}
-
-\item{unlabelled_dtm}{Unlabelled document-term matrix.}
-
-\item{labels_matrix}{Labelled matrix for labelled_dtm.}
+\item{full_labels}{Labelled matrix for labelled_dtm.}
 
 \item{topic}{The topic to explain.}
 
-\item{parameters}{Default list of parameters if user did not perform hyperparameter tuning.}
-
-\item{parameters_df}{A dataframe with columns representing parameters and rows representing an optimal parameter set for each topic.}
+\item{model}{Xgboost model}
 }
 \value{
 The trained xgboost model and explainer for the chosen topic
