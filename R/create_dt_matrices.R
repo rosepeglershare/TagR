@@ -30,22 +30,18 @@ create_dt_matrices <- function(labelled_data,
     labdata <- data.frame(labelled_data[[text_vars]])
     colnames(labdata) <- text_vars
     all <- rbind(labdata, unlabelled_data)
+    colnames(all) <- 'text'
 
   } else {
     all <- rbind(labelled_data[, text_vars], unlabelled_data)
-    spaces <- rep(' ', length(rownames(all)))
 
-    for (var in text_vars){
-      all <- tibble::add_column(all, spaces, .after = var )
-    }
+    all <- all %>%
+      tidyr::unite("text", text_vars[[1]]:text_vars[[length(text_vars)]], sep = " ")
   }
-
-  all$combined <- do.call(paste0, all[names(all)])
-  all <- all$combined
 
   # create a corpus ready for document term matrix
   cat("STEP 2 OF 4: Creating corpus...\n")
-  dtm <- tm::VCorpus(tm::VectorSource(all)) %>%
+  dtm <- tm::VCorpus(tm::VectorSource(all[,'text'])) %>%
     tm::tm_map(tm::stemDocument) %>%
     tm::tm_map(tm::stripWhitespace)
 
