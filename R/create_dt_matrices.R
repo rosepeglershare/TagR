@@ -71,14 +71,17 @@ create_dt_matrices <- function(labelled_data,
   valsplit <- tail(full_labelled, nrow(full_labelled)*val_split)
   val_labelled_dtm <- Matrix::Matrix(valsplit, sparse = TRUE)
 
-  labels <- labelled_data[, topics]
+  # CHANGE TO DATAFRAME!!
+  labels <- as.data.frame(labelled_data[, topics])
+  colnames(labels) <- topics
   fulllabels <- as.matrix(labels)
 
   # the split might need to be changed so there's no bias?
-  trainlabels <- head(labels, nrow(labels)*(1-val_split))
+  trainlabels <- as.data.frame(head(labels, nrow(labels)*(1-val_split)))
+
   trainlabels <- as.matrix(trainlabels)
 
-  vallabels <- tail(labels, nrow(labels)*val_split)
+  vallabels <- as.data.frame(tail(labels, nrow(labels)*val_split))
   vallabels <- as.matrix(vallabels)
 
   unlabelled_dtm <- Matrix::Matrix(tail(dtm, nrow(unlabelled_data)), sparse=TRUE)
